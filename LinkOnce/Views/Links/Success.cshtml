@@ -6,7 +6,7 @@
     string link = Request.Url.Scheme + "://" + Request.Url.Host +
         (Request.Url.Host.Equals("locahost", StringComparison.OrdinalIgnoreCase) &&
         Request.Url.Port != 80 ? ":" + Request.Url.Port.ToString() : "") +
-        "/Links/v/" +
+        "/l/v/" +
         Model.ShortUrl;
 }
 
