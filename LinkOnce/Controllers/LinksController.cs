@@ -73,6 +73,7 @@ namespace LinkOnce.Controllers
             }
             catch (Exception e)
             {
+                ViewBag.Error = e.GetBaseException().Message;
                 return View(link);
             }
         }
