@@ -1,0 +1,15 @@
+﻿@model LinkOnce.Models.Link
+
+@{
+    ViewBag.Title = "Success";
+    ViewBag.Message = "Your link has been created.";
+    string link = Request.Url.Scheme + "://" + Request.Url.Host +
+        (Request.Url.Port != 80 ? ":" + Request.Url.Port.ToString() : "") +
+        "/Links/v/" +
+        Model.ShortUrl;
+}
+
+<h2>Careful!</h2>
+<p>This link only works once!</p>
+<h5>Share this link</h5>
+@Html.TextBox("link", link);
