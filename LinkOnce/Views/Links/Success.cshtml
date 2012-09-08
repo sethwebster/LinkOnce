@@ -4,7 +4,7 @@
     ViewBag.Title = "Success";
     ViewBag.Message = "Your link has been created.";
     string link = Request.Url.Scheme + "://" + Request.Url.Host +
-        (Request.Url.Host.Equals("locahost", StringComparison.OrdinalIgnoreCase) &&
+        (Request.Url.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase) &&
         Request.Url.Port != 80 ? ":" + Request.Url.Port.ToString() : "") +
         "/l/v/" +
         Model.ShortUrl;
