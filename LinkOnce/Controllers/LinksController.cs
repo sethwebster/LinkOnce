@@ -78,6 +78,11 @@ namespace LinkOnce.Controllers
             }
         }
 
+        public ActionResult NotFound(string id)
+        {
+            return View();
+        }
+
         public ActionResult Success(string Id)
         {
             var link = database.Links.FirstOrDefault(l => l.ShortUrl.Equals(Id, StringComparison.OrdinalIgnoreCase));
