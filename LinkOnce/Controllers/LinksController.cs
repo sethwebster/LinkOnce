@@ -1,6 +1,7 @@
 ﻿using LinkOnce.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -112,30 +113,45 @@ namespace LinkOnce.Controllers
                 WebRequest wr = WebRequest.Create(link.Destination);
                 using (var resp = wr.GetResponse())
                 {
-                    Response.ContentType = resp.ContentType;
-                    foreach (var h in resp.Headers.AllKeys)
-                    {
-                        Response.Headers.Add(h, resp.Headers[h]);
-                    }
-                    byte[] buffer = new byte[4096];
-                    int bytesRead = 0;
-                    long totalBytesRead = 0;
-                    using (var streamIn = resp.GetResponseStream())
-                    {
-                        while (totalBytesRead < resp.ContentLength)
-                        {
-                            int len = (int)(resp.ContentLength - totalBytesRead > 4096 ? 4096 : resp.ContentLength - totalBytesRead);
-                            bytesRead = streamIn.Read(buffer, 0, len);
-                            totalBytesRead += bytesRead;
-                            Response.OutputStream.Write(buffer, 0, bytesRead);
-                        }
-                    }
+                    PrepareHeaders(link, resp);
+                    SendData(resp);
                 }
                 return null;
             }
             else
             {
                 return RedirectToAction("NotFound");
+            }
+        }
+
+        private void SendData(WebResponse resp)
+        {
+            byte[] buffer = new byte[4096];
+            int bytesRead = 0;
+            long totalBytesRead = 0;
+            using (var streamIn = resp.GetResponseStream())
+            {
+                while (totalBytesRead < resp.ContentLength)
+                {
+                    int len = (int)(resp.ContentLength - totalBytesRead > 4096 ? 4096 : resp.ContentLength - totalBytesRead);
+                    bytesRead = streamIn.Read(buffer, 0, len);
+                    totalBytesRead += bytesRead;
+                    Response.OutputStream.Write(buffer, 0, bytesRead);
+                    Response.OutputStream.Flush();
+                }
+            }
+        }
+
+        private void PrepareHeaders(Link link, WebResponse resp)
+        {
+            Response.ContentType = resp.ContentType;
+            foreach (var h in resp.Headers.AllKeys)
+            {
+                Response.Headers.Add(h, resp.Headers[h]);
+            }
+            if (Response.Headers["Content-Disposition"] == null)
+            {
+                Response.Headers.Add("Content-Disposition", "attachment; filename=" + Path.GetFileName(link.Destination));
             }
         }
 
