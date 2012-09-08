@@ -26,13 +26,14 @@
 {
     <h3>Create your link</h3>
     @Html.ValidationSummary()
+    <div class="error">@ViewBag.Error</div>
     <ol class="round">
         <li class="one">
             <h5>Destination</h5>
             Where is the content you want to serve?<br />
             @Html.TextBoxFor(a => a.Destination)
             @Html.ValidationMessageFor(a => a.Destination,"*")
-            <div class="error">ViewBag.Error</div>
+            
         </li>
 
         <li class="two">
