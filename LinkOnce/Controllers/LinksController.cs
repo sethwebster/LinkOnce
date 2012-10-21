@@ -1,4 +1,5 @@
-﻿using LinkOnce.Models;
+﻿using LinkOnce.Helpers;
+using LinkOnce.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -115,12 +116,28 @@ namespace LinkOnce.Controllers
                 {
                     PrepareHeaders(link, resp);
                     SendData(resp);
+                    SendNotification(link);
                 }
                 return null;
             }
             else
             {
                 return RedirectToAction("NotFound");
+            }
+        }
+
+        private void SendNotification(Link link)
+        {
+            if (!string.IsNullOrWhiteSpace(link.OptionalEmailAddress))
+            {
+                EmailHelper.SendEmailAsync("LinkOnce Notifier <no-reply@linkonce.apphb.com>",
+                    link.OptionalEmailAddress,
+                    "Your link has been used",
+                    "<html><body><h3>Your link has been used</h3><p>The link to " + link.Destination + " was retrieved " + link.DateUsed.ToLongDateString() +
+                    " at " + link.DateUsed.ToLongTimeString() + "</p>" +
+                    "<p>This link is no longer usable</p>" +
+                    "<p class='footer'>You are receiving this message because you opted to be notified when this link was used.</p>" +
+                    "</body></html>", true);
             }
         }
 
