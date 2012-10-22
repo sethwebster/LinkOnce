@@ -16,6 +16,7 @@
     <script type="text/javascript">
         $(function () {
             var hub = $.connection.linkStatusHub;
+            $.connection.hub.logging = true;
             hub.updateStatus = function (status) {
                 if (status.Status == true) {
                     $("#status_message").html(status.Message);
@@ -28,8 +29,8 @@
             hub.scheduleRecheck = function () {
                 setTimeout(function () {
                     hub.getLinkStatus(@Model.LinkId);
-                    }, 3000);
-                }
+                }, 3000);
+            }
             $.connection.hub.start(function () {
                 hub.getLinkStatus(@Model.LinkId);
             });
