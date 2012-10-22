@@ -120,3 +120,9 @@ C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\DotNetOpenAuth.OAu
 C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\DotNetOpenAuth.OpenId.xml
 C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\obj\Debug\LinkOnce.pdb
+C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\SignalR.dll
+C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\SignalR.Hosting.AspNet.dll
+C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\SignalR.Hosting.Common.dll
+C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\SignalR.xml
+C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\SignalR.Hosting.AspNet.xml
+C:\Users\swebster.CORP\Documents\GitHub\LinkOnce\LinkOnce\bin\SignalR.Hosting.Common.xml

@@ -9,8 +9,37 @@
         "/l/v/" +
         Model.ShortUrl;
 }
+@section scripts
+{
+    <script src="/Scripts/jquery.signalR-0.5.3.js"></script>
+    <script src="/SignalR/Hubs"></script>
+    <script type="text/javascript">
+        $(function () {
+            var hub = $.connection.linkStatusHub;
+            hub.updateStatus = function (status) {
+                if (status.Status == true) {
+                    $("#status_message").html(status.Message);
+                }
+                else {
+                    $("#status_message").html("An error occurred.");
+                }
+            };
 
+            hub.scheduleRecheck = function () {
+                setTimeout(function () {
+                    hub.getLinkStatus(@Model.LinkId);
+                    }, 3000);
+                }
+            $.connection.hub.start(function () {
+                hub.getLinkStatus(@Model.LinkId);
+            });
+        });
+    </script>
+}
 <h2>Careful!</h2>
-<p>This link only works once!</p>
+<p>This link only works once! <strong>Note:</strong> You may leave this page open for an instant notification when the link has been used.</p>
 <h5>Share this link</h5>
 @Html.TextBox("link", link);
+<div id="status">
+    <h2>Current Status: <span id="status_message">Not retrieved.</span></h2>
+</div>
